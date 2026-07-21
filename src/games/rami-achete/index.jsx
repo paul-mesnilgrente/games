@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
+import { useLocalStorage } from '../../lib/useLocalStorage.js'
 
 export const meta = {
   title: 'Rami achète',
@@ -24,9 +25,12 @@ const CONTRATS = [
 const JOUEURS_PAR_DEFAUT = ['Joueur 1', 'Joueur 2', 'Joueur 3']
 
 export default function RamiAchete() {
-  const [joueurs, setJoueurs] = useState(JOUEURS_PAR_DEFAUT)
+  const [joueurs, setJoueurs] = useLocalStorage(
+    'rami-achete:joueurs',
+    JOUEURS_PAR_DEFAUT,
+  )
   // scores[partie][joueur] = chaîne saisie ('' = pas encore joué)
-  const [scores, setScores] = useState(() =>
+  const [scores, setScores] = useLocalStorage('rami-achete:scores', () =>
     CONTRATS.map(() => JOUEURS_PAR_DEFAUT.map(() => '')),
   )
 
@@ -98,7 +102,7 @@ export default function RamiAchete() {
 
   // Pour une partie : min = gagnant (bleu), max = plus de points (rouge).
   function statsPartie(partie) {
-    const valeurs = scores[partie]
+    const valeurs = (scores[partie] ?? [])
       .map((v) => (v === '' ? null : Number(v) || 0))
       .filter((v) => v !== null)
     if (valeurs.length < 2) return { min: null, max: null }
@@ -175,7 +179,7 @@ export default function RamiAchete() {
                     <span className="text-muted">{contrat}</span>
                   </td>
                   {joueurs.map((_, j) => {
-                    const brut = scores[p][j]
+                    const brut = scores[p]?.[j] ?? ''
                     const valeur = brut === '' ? null : Number(brut) || 0
                     let cls
                     if (valeur !== null && min !== null) {

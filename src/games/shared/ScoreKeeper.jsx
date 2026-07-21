@@ -1,23 +1,30 @@
 import { useMemo, useState } from 'react'
+import { useLocalStorage } from '../../lib/useLocalStorage.js'
 
 // A reusable round-by-round score keeper used by most games.
 //
 //   <ScoreKeeper
+//     storageKey="belote"    // required: namespaces the saved players & scores
 //     defaultPlayers={['Team A', 'Team B']}
 //     label="team"           // noun used in the UI ("player" / "team")
 //     targetScore={501}      // optional: highlight a winner past this score
 //     lowestWins={false}     // true for games where fewest points wins (e.g. Rami)
 //   />
 export default function ScoreKeeper({
+  storageKey = 'scorekeeper',
   defaultPlayers = ['Player 1', 'Player 2'],
   label = 'player',
   targetScore = null,
   lowestWins = false,
 }) {
-  const [players, setPlayers] = useState(defaultPlayers)
+  // Persisted so players & scores survive a refresh or accidental close.
+  const [players, setPlayers] = useLocalStorage(
+    `${storageKey}:players`,
+    defaultPlayers,
+  )
   // rounds[i] = array of numbers, one per player
-  const [rounds, setRounds] = useState([])
-  // the row currently being typed in, before it's committed
+  const [rounds, setRounds] = useLocalStorage(`${storageKey}:rounds`, [])
+  // the row currently being typed in, before it's committed (not persisted)
   const [draft, setDraft] = useState(() => players.map(() => ''))
 
   const totals = useMemo(

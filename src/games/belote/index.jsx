@@ -14,6 +14,7 @@ export default function Belote() {
         Enter each team's points per deal. First team to 501 wins.
       </p>
       <ScoreKeeper
+        storageKey="belote"
         defaultPlayers={['Us', 'Them']}
         label="team"
         targetScore={501}
