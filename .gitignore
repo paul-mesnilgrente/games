@@ -3,3 +3,7 @@ dist
 dist-ssr
 *.local
 .DS_Store
+
+# Claude Code machine-local settings & temp files (not shared)
+.claude/settings.local.json
+.claude/*.tmp.*
