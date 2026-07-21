@@ -1,0 +1,19 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.game-card {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-3px);
+}
