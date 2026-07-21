@@ -17,3 +17,47 @@ body,
 .game-card:hover {
   transform: translateY(-3px);
 }
+
+/* --- Score tables: readable & swipeable on phones ---------------------- */
+
+/* Let the table overflow its container and scroll horizontally rather than
+   squishing every column until names are unreadable. */
+.score-table th,
+.score-table td {
+  min-width: 4.5rem;
+  padding: 0.4rem 0.35rem;
+}
+
+/* Inputs at 16px so they're legible AND iOS doesn't zoom in on focus. */
+.score-table input {
+  font-size: 16px;
+  min-width: 3.25rem;
+}
+
+.score-table .name-input {
+  font-size: 16px;
+  font-weight: 700;
+  min-width: 5rem;
+}
+
+/* First column (round # / contrat) stays visible while you scroll players. */
+.score-table .score-label {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  min-width: 3.5rem;
+  white-space: normal;
+}
+
+.score-table .score-label-wide {
+  min-width: 8.5rem;
+}
+
+.score-table thead .score-label {
+  background-color: var(--bs-dark, #212529);
+}
+
+.score-table tbody .score-label,
+.score-table tfoot .score-label {
+  background-color: var(--bs-body-bg, #fff);
+}

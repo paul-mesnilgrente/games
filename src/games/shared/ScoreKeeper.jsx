@@ -83,15 +83,15 @@ export default function ScoreKeeper({
   return (
     <div>
       <div className="table-responsive">
-        <table className="table table-bordered align-middle text-center mb-3">
+        <table className="table table-bordered align-middle text-center mb-3 score-table">
           <thead className="table-dark">
             <tr>
-              <th style={{ width: '4rem' }}>#</th>
+              <th className="score-label">#</th>
               {players.map((name, p) => (
                 <th key={p}>
                   <div className="d-flex align-items-center gap-1">
                     <input
-                      className="form-control form-control-sm text-center fw-bold"
+                      className="form-control text-center name-input"
                       value={name}
                       onChange={(e) => renamePlayer(p, e.target.value)}
                       aria-label={`${label} ${p + 1} name`}
@@ -115,7 +115,7 @@ export default function ScoreKeeper({
           <tbody>
             {rounds.map((round, r) => (
               <tr key={r}>
-                <td className="text-muted">
+                <td className="score-label text-muted">
                   {r + 1}
                   <button
                     type="button"
@@ -130,7 +130,8 @@ export default function ScoreKeeper({
                   <td key={p}>
                     <input
                       type="number"
-                      className="form-control form-control-sm text-center"
+                      inputMode="numeric"
+                      className="form-control text-center"
                       value={value}
                       onChange={(e) => editRound(r, p, e.target.value)}
                     />
@@ -141,12 +142,13 @@ export default function ScoreKeeper({
 
             {/* draft row for the next round */}
             <tr className="table-light">
-              <td className="text-muted fst-italic">new</td>
+              <td className="score-label text-muted fst-italic">new</td>
               {draft.map((value, p) => (
                 <td key={p}>
                   <input
                     type="number"
-                    className="form-control form-control-sm text-center"
+                    inputMode="numeric"
+                    className="form-control text-center"
                     value={value}
                     placeholder="0"
                     onChange={(e) =>
@@ -163,7 +165,7 @@ export default function ScoreKeeper({
 
           <tfoot>
             <tr className="fw-bold fs-5">
-              <td>Σ</td>
+              <td className="score-label">Σ</td>
               {totals.map((total, p) => (
                 <td
                   key={p}
