@@ -61,3 +61,48 @@ body,
 .score-table tfoot .score-label {
   background-color: var(--bs-body-bg, #fff);
 }
+
+/* --- Rami grid: N equal player columns, no horizontal scroll ----------- */
+
+/* Fixed layout makes every player column share the width equally, so 5+
+   players always fit the screen. The contrat is a full-width banner row. */
+.rami-grid {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.rami-grid th,
+.rami-grid td {
+  padding: 0.3rem 0.15rem;
+  overflow: hidden;
+}
+
+/* Inputs fill their cell; 16px keeps them legible and stops iOS zoom. */
+.rami-grid input {
+  width: 100%;
+  font-size: 16px;
+  padding: 0.25rem 0.1rem;
+}
+
+.rami-grid .name-input {
+  font-weight: 700;
+}
+
+.rami-grid .remove-x {
+  font-size: 0.7rem;
+  text-decoration: none;
+  opacity: 0.75;
+}
+
+/* Full-width contrat banner above each partie's row of scores. */
+.rami-grid .contrat-banner {
+  background-color: var(--bs-secondary-bg, #e9ecef);
+  padding-left: 0.6rem;
+}
+
+/* Keep player names visible while scrolling the parties (offset by navbar). */
+.rami-grid thead th {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 2;
+}

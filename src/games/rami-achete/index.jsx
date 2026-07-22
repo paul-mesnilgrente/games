@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 import { useLocalStorage } from '../../lib/useLocalStorage.js'
 
 export const meta = {
@@ -14,11 +14,11 @@ export const meta = {
 // ---------------------------------------------------------------------------
 const CONTRATS = [
   '2 brelans',
-  '1 brelan + 1 suite',
+  '1 suite de 4 + 1 brelan',
   '1 suite de 8',
   '3 brelans',
-  '2 brelans + 1 suite',
-  '1 brelan + 2 suites',
+  '1 suite de 7 + 1 brelan',
+  '2 suites de 4 + 1 brelan',
   '1 suite de 6 + 2 brelans',
 ]
 
@@ -138,46 +138,46 @@ export default function RamiAchete() {
         </div>
       )}
 
-      {/* --- Grille des scores --- */}
-      <div className="table-responsive">
-        <table className="table table-bordered align-middle text-center mb-3 score-table">
-          <thead className="table-dark">
-            <tr>
-              <th className="score-label score-label-wide text-start">Partie · contrat</th>
-              {joueurs.map((nom, j) => (
-                <th key={j}>
-                  <div className="d-flex align-items-center gap-1">
-                    <input
-                      className="form-control text-center name-input"
-                      value={nom}
-                      onChange={(e) => renommer(j, e.target.value)}
-                      aria-label={`Nom du joueur ${j + 1}`}
-                    />
-                    {joueurs.length > 1 && (
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-light border-0"
-                        onClick={() => retirerJoueur(j)}
-                        title="Retirer le joueur"
-                      >
-                        ×
-                      </button>
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
+      {/* --- Grille des scores : contrat en bannière pleine largeur, une
+          colonne par joueur, tout tient sans défilement horizontal. --- */}
+      <table className="table table-bordered align-middle text-center mb-3 rami-grid">
+        <thead className="table-dark">
+          <tr>
+            {joueurs.map((nom, j) => (
+              <th key={j}>
+                <input
+                  className="form-control text-center name-input"
+                  value={nom}
+                  onChange={(e) => renommer(j, e.target.value)}
+                  aria-label={`Nom du joueur ${j + 1}`}
+                />
+                {joueurs.length > 1 && (
+                  <button
+                    type="button"
+                    className="btn btn-link btn-sm text-light p-0 remove-x"
+                    onClick={() => retirerJoueur(j)}
+                    title="Retirer le joueur"
+                  >
+                    × retirer
+                  </button>
+                )}
+              </th>
+            ))}
+          </tr>
+        </thead>
 
-          <tbody>
-            {CONTRATS.map((contrat, p) => {
-              const { min, max } = statsPartie(p)
-              return (
-                <tr key={p}>
-                  <td className="score-label score-label-wide text-start">
-                    <span className="fw-bold me-1">{p + 1}.</span>
+        <tbody>
+          {CONTRATS.map((contrat, p) => {
+            const { min, max } = statsPartie(p)
+            return (
+              <Fragment key={p}>
+                <tr>
+                  <td colSpan={joueurs.length} className="contrat-banner text-start">
+                    <span className="fw-bold me-1">Partie {p + 1}.</span>
                     <span className="text-muted">{contrat}</span>
                   </td>
+                </tr>
+                <tr>
                   {joueurs.map((_, j) => {
                     const brut = scores[p]?.[j] ?? ''
                     const valeur = brut === '' ? null : Number(brut) || 0
@@ -200,25 +200,27 @@ export default function RamiAchete() {
                     )
                   })}
                 </tr>
-              )
-            })}
-          </tbody>
+              </Fragment>
+            )
+          })}
+        </tbody>
 
-          <tfoot>
-            <tr className="fw-bold fs-5">
-              <td className="score-label score-label-wide text-start">Total</td>
-              {totaux.map((total, j) => (
-                <td key={j}>
-                  {total}{' '}
-                  <span className="text-muted fs-6">
-                    ({medaille(rangParJoueur[j])})
-                  </span>
-                </td>
-              ))}
-            </tr>
-          </tfoot>
-        </table>
-      </div>
+        <tfoot>
+          <tr>
+            <td colSpan={joueurs.length} className="contrat-banner text-start fw-bold">
+              Σ Total
+            </td>
+          </tr>
+          <tr className="fw-bold fs-5">
+            {totaux.map((total, j) => (
+              <td key={j}>
+                {total}
+                <div className="fs-6 text-muted">{medaille(rangParJoueur[j])}</div>
+              </td>
+            ))}
+          </tr>
+        </tfoot>
+      </table>
 
       <div className="d-flex flex-wrap gap-2">
         <button
