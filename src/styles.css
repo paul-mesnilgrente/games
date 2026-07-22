@@ -142,6 +142,48 @@ main h1 {
   --bs-btn-border-color: rgba(178, 58, 58, 0.7);
 }
 
+/* Buttons that live on a cream card (Belote entry panel) — green, not gold. */
+.btn-felt-solid {
+  --bs-btn-bg: var(--felt-1);
+  --bs-btn-border-color: var(--felt-2);
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: var(--felt-2);
+  --bs-btn-hover-border-color: var(--felt-3);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-bg: var(--felt-3);
+  --bs-btn-active-color: #fff;
+  font-weight: 600;
+}
+
+.btn-annonce {
+  --bs-btn-color: var(--felt-2);
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: rgba(11, 77, 52, 0.45);
+  --bs-btn-hover-bg: var(--felt-1);
+  --bs-btn-hover-border-color: var(--felt-1);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-bg: var(--felt-2);
+  --bs-btn-active-color: #fff;
+}
+
+/* Annonce pill (selected annonce + mode badge in history). */
+.annonce-pill {
+  background-color: var(--felt-1);
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.btn-pill-x {
+  background: none;
+  border: 0;
+  color: inherit;
+  margin-left: 0.35rem;
+  padding: 0;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
 /* --- Tables become cream card surfaces on the felt --------------------- */
 
 .table {
