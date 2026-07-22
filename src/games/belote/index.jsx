@@ -182,7 +182,6 @@ export default function Belote() {
                   inputMode="numeric"
                   className="form-control"
                   value={plis[team]}
-                  placeholder="0"
                   onChange={(e) => saisirPlis(team, e.target.value)}
                 />
               </div>
