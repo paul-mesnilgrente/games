@@ -114,7 +114,7 @@ export default function RamiAchete() {
   return (
     <>
       <h1 className="mb-1">🃏 Rami achète</h1>
-      <p className="text-muted">
+      <p className="text-soft">
         Saisis les points de chaque joueur à chaque partie. Le plus petit total
         l'emporte.{' '}
         <span className="badge text-bg-primary">bleu</span> = partie gagnée ·{' '}
@@ -137,6 +137,17 @@ export default function RamiAchete() {
           ))}
         </div>
       )}
+
+      {/* Ajout d'un joueur, au-dessus du tableau de score. */}
+      <div className="d-flex mb-2">
+        <button
+          type="button"
+          className="btn btn-felt-outline btn-sm"
+          onClick={ajouterJoueur}
+        >
+           + Ajouter un joueur
+        </button>
+      </div>
 
       {/* --- Grille des scores : contrat en bannière pleine largeur, une
           colonne par joueur, tout tient sans défilement horizontal. --- */}
@@ -223,13 +234,6 @@ export default function RamiAchete() {
       </table>
 
       <div className="d-flex flex-wrap gap-2">
-        <button
-          type="button"
-          className="btn btn-outline-secondary"
-          onClick={ajouterJoueur}
-        >
-          + Ajouter un joueur
-        </button>
         <button
           type="button"
           className="btn btn-outline-danger ms-auto"

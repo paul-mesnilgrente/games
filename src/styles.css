@@ -1,3 +1,23 @@
+/* ===========================================================================
+   Card-table theme — green felt, cream "playing-card" surfaces, gold trim.
+   Overrides Bootstrap's default look without changing much markup.
+   =========================================================================== */
+
+:root {
+  --felt-1: #17805a;
+  --felt-2: #0b4d34;
+  --felt-3: #063421;
+  --cream: #f7f0dd;
+  --cream-surface: #fffdf6;
+  --ink: #22302a;
+  --gold: #e6c877;
+  --gold-deep: #c29a44;
+  --suit-red: #b23a3a;
+
+  --font-display: 'Georgia', 'Iowan Old Style', 'Palatino Linotype',
+    'Book Antiqua', serif;
+}
+
 html,
 body,
 #root {
@@ -10,25 +30,189 @@ body,
   min-height: 100vh;
 }
 
+body {
+  color: var(--cream);
+  background-color: var(--felt-2);
+  background-image: radial-gradient(
+    ellipse at 50% -10%,
+    var(--felt-1) 0%,
+    var(--felt-2) 55%,
+    var(--felt-3) 100%
+  );
+  background-attachment: fixed;
+}
+
+/* --- Typography -------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+.navbar-brand,
+.display-1,
+.display-5,
+.display-6 {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+main h1 {
+  color: var(--gold);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* Secondary text that sits directly on the felt (not on a card). */
+.text-soft {
+  color: rgba(247, 240, 221, 0.82) !important;
+}
+
+/* --- Navbar ------------------------------------------------------------ */
+
+.navbar.bg-dark {
+  background-color: rgba(6, 45, 29, 0.92) !important;
+  backdrop-filter: blur(6px);
+  border-bottom: 2px solid var(--gold-deep);
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-brand {
+  color: var(--gold) !important;
+  font-size: 1.4rem;
+}
+
+.navbar .nav-link {
+  color: rgba(247, 240, 221, 0.85);
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--gold);
+}
+
+/* --- Cards (home tiles, ranking) look like playing cards --------------- */
+
+.card {
+  background-color: var(--cream-surface);
+  color: var(--ink);
+  border: 1px solid rgba(194, 154, 68, 0.55);
+  border-radius: 0.9rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.card .text-muted {
+  color: #6b6459 !important;
+}
+
 .game-card {
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .game-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px) rotate(-0.6deg);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.45);
 }
 
-/* --- Score tables: readable & swipeable on phones ---------------------- */
+/* --- Buttons ----------------------------------------------------------- */
 
-/* Let the table overflow its container and scroll horizontally rather than
-   squishing every column until names are unreadable. */
+.btn-primary {
+  --bs-btn-bg: var(--gold-deep);
+  --bs-btn-border-color: #b0872f;
+  --bs-btn-color: #241c0e;
+  --bs-btn-hover-bg: var(--gold);
+  --bs-btn-hover-border-color: var(--gold-deep);
+  --bs-btn-hover-color: #241c0e;
+  --bs-btn-active-bg: #b0872f;
+  --bs-btn-active-color: #241c0e;
+  font-weight: 600;
+}
+
+.btn-outline-secondary,
+.btn-felt-outline {
+  --bs-btn-color: var(--gold);
+  --bs-btn-border-color: rgba(230, 200, 119, 0.6);
+  --bs-btn-bg: transparent;
+  --bs-btn-hover-bg: var(--gold-deep);
+  --bs-btn-hover-border-color: var(--gold-deep);
+  --bs-btn-hover-color: #241c0e;
+  --bs-btn-active-bg: #b0872f;
+  --bs-btn-active-color: #241c0e;
+}
+
+.btn-outline-danger {
+  --bs-btn-color: #f0a3a3;
+  --bs-btn-border-color: rgba(178, 58, 58, 0.7);
+}
+
+/* --- Tables become cream card surfaces on the felt --------------------- */
+
+.table {
+  --bs-table-bg: transparent;
+  color: var(--ink);
+  margin-bottom: 0;
+}
+
+.rami-grid,
+.score-table {
+  background-color: var(--cream-surface);
+  border-radius: 0.7rem;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Header row = deep felt with gold lettering. */
+.table > thead.table-dark > tr > th {
+  background-color: var(--felt-2);
+  color: var(--gold);
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.table-bordered > :not(caption) > * > * {
+  border-color: rgba(194, 154, 68, 0.28);
+}
+
+/* Inputs blend into their cell; underline-style focus. */
+.table input.form-control {
+  background-color: transparent;
+  border-color: rgba(194, 154, 68, 0.35);
+  color: var(--ink);
+}
+
+.table input.form-control:focus {
+  border-color: var(--gold-deep);
+  box-shadow: 0 0 0 0.15rem rgba(230, 200, 119, 0.35);
+  background-color: #fffef9;
+}
+
+/* Name inputs live in the green header, so they need light text. */
+.name-input {
+  color: var(--cream) !important;
+  font-weight: 700;
+}
+
+.table thead .name-input.form-control {
+  border-color: rgba(230, 200, 119, 0.4);
+}
+
+/* Win / most-points highlight cells, tuned for the cream table. */
+.table .table-primary {
+  --bs-table-bg: #cfe4ff;
+}
+
+.table .table-danger {
+  --bs-table-bg: #ffd7d3;
+}
+
+.table tfoot tr {
+  background-color: #f0e7cd;
+}
+
+/* --- Score-table helpers (Belote): scroll wide tables, keep col 1 ------ */
+
 .score-table th,
 .score-table td {
   min-width: 4.5rem;
   padding: 0.4rem 0.35rem;
 }
 
-/* Inputs at 16px so they're legible AND iOS doesn't zoom in on focus. */
 .score-table input {
   font-size: 16px;
   min-width: 3.25rem;
@@ -36,11 +220,9 @@ body,
 
 .score-table .name-input {
   font-size: 16px;
-  font-weight: 700;
   min-width: 5rem;
 }
 
-/* First column (round # / contrat) stays visible while you scroll players. */
 .score-table .score-label {
   position: sticky;
   left: 0;
@@ -54,18 +236,16 @@ body,
 }
 
 .score-table thead .score-label {
-  background-color: var(--bs-dark, #212529);
+  background-color: var(--felt-2);
 }
 
 .score-table tbody .score-label,
 .score-table tfoot .score-label {
-  background-color: var(--bs-body-bg, #fff);
+  background-color: var(--cream-surface);
 }
 
 /* --- Rami grid: N equal player columns, no horizontal scroll ----------- */
 
-/* Fixed layout makes every player column share the width equally, so 5+
-   players always fit the screen. The contrat is a full-width banner row. */
 .rami-grid {
   table-layout: fixed;
   width: 100%;
@@ -77,27 +257,32 @@ body,
   overflow: hidden;
 }
 
-/* Inputs fill their cell; 16px keeps them legible and stops iOS zoom. */
 .rami-grid input {
   width: 100%;
   font-size: 16px;
   padding: 0.25rem 0.1rem;
 }
 
-.rami-grid .name-input {
-  font-weight: 700;
-}
-
 .rami-grid .remove-x {
   font-size: 0.7rem;
   text-decoration: none;
-  opacity: 0.75;
+  color: rgba(230, 200, 119, 0.85) !important;
 }
 
 /* Full-width contrat banner above each partie's row of scores. */
 .rami-grid .contrat-banner {
-  background-color: var(--bs-secondary-bg, #e9ecef);
+  background-color: var(--felt-1);
+  color: var(--cream);
   padding-left: 0.6rem;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.rami-grid .contrat-banner .fw-bold {
+  color: var(--gold);
+}
+
+.rami-grid .contrat-banner .text-muted {
+  color: rgba(247, 240, 221, 0.9) !important;
 }
 
 /* Keep player names visible while scrolling the parties (offset by navbar). */
@@ -105,4 +290,15 @@ body,
   position: sticky;
   top: 3.5rem;
   z-index: 2;
+}
+
+/* --- Footer ------------------------------------------------------------ */
+
+footer.border-top {
+  border-color: rgba(230, 200, 119, 0.35) !important;
+}
+
+footer,
+footer .text-muted {
+  color: rgba(247, 240, 221, 0.6) !important;
 }

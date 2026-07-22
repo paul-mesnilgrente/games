@@ -10,7 +10,7 @@ export default function Belote() {
   return (
     <>
       <h1 className="mb-1">♠️ Belote</h1>
-      <p className="text-muted">
+      <p className="text-soft">
         Enter each team's points per deal. First team to 501 wins.
       </p>
       <ScoreKeeper
