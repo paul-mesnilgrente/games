@@ -4,7 +4,7 @@ import { games } from '../games/registry.js'
 export default function Layout() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
           <Link className="navbar-brand fw-bold" to="/">
             🎮 Games

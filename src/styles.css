@@ -285,10 +285,10 @@ main h1 {
   color: rgba(247, 240, 221, 0.9) !important;
 }
 
-/* Keep player names visible while scrolling the parties (offset by navbar). */
+/* Keep player names visible while scrolling the parties. */
 .rami-grid thead th {
   position: sticky;
-  top: 3.5rem;
+  top: 0;
   z-index: 2;
 }
 
